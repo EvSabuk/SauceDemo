@@ -40,7 +40,3 @@ public class LocatorTest extends BaseTest {
         driver.findElement(By.cssSelector("[src*='backpack']"));
     }
 }
-
-
-
-
