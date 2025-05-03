@@ -12,8 +12,7 @@ public class LoginTest extends BaseTest{
     driver.findElement(By.id("password")).sendKeys("secret-sauce");
     driver.findElement(By.id("login-button")).click();
     String title = driver.findElement(By.cssSelector(".title")).getText();
-        Assert.assertEquals(title, "Products", "Логин не выполнен");
-
+    Assert.assertEquals(title, "Products", "Логин не выполнен");
     }
 
     @Test
