@@ -1,14 +1,25 @@
+package tests;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.asserts.SoftAssert;
+import pages.CartPage;
+import pages.LoginPage;
+import pages.ProductsPage;
+
 import java.time.Duration;
 import java.util.HashMap;
 
 public class BaseTest {
     WebDriver driver;
+    SoftAssert softAssert;
+    LoginPage loginPage;
+    ProductsPage productsPage;
+    CartPage cartPage;
 
     @BeforeMethod
     public WebDriver setup() {
@@ -24,7 +35,12 @@ public class BaseTest {
         driver = new ChromeDriver(options);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.manage().window().maximize();
+        softAssert = new SoftAssert();
+        loginPage = new LoginPage(driver);
+        productsPage = new ProductsPage(driver);
+        cartPage = new CartPage(driver);
         return driver;
+
     }
 
     @AfterMethod(alwaysRun = true)

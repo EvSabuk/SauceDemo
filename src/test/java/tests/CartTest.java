@@ -1,6 +1,11 @@
+package tests;
+
 import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 public class CartTest extends BaseTest {
 
@@ -30,5 +35,19 @@ public class CartTest extends BaseTest {
         softAssert.assertEquals(productName, cartProductName);
         softAssert.assertEquals(ProductPrice, cartProductPrice);
         softAssert.assertAll();
+    }
+
+    @Test
+    public void checkLoginPurchasePageObject() {
+        loginPage.open();
+        loginPage.login("standard_user", "secret_sauce");
+        productsPage.addProduct("Sauce Labs Backpack");
+        productsPage.addProduct("Sauce Labs Fleece Jacket");
+        productsPage.addToCart();
+        cartPage.open();
+        assertTrue(cartPage.isProductInCart("Sauce Labs Backpack"), "bad");
+        assertEquals(cartPage.getPrdoctFromCart(0), "Sauce Labs Backpack", "BAD");
+        assertTrue(cartPage.getProductsName().contains("Sauce Labs Backpack"));
+        assertEquals(cartPage.getProductPrice("Sauce Labs Backpack"), 29.99);
     }
 }
