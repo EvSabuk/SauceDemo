@@ -3,11 +3,13 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class CartPage extends BasePage{
+public class CartPage extends BasePage {
+
+    private static final By TITLE = By.cssSelector("[data-test = title]"),
+            CONTINUE_SHOPPING_BUTTON = By.id("continue-shopping");
 
     public CartPage(WebDriver driver) {
         super(driver);
@@ -18,10 +20,11 @@ public class CartPage extends BasePage{
     }
 
     public boolean isProductInCart(String product) {
-       return driver.findElement(By.xpath(String.format("//div[@class='cart_item']//*[text()='%s']", product))).isDisplayed();
+        return driver.findElement(By.xpath(String.format("//div[@class='cart_item']//*[text()='%s']",
+                product))).isDisplayed();
     }
 
-    public String getPrdoctFromCart(int index) {
+    public String getProductFromCart(int index) {
         return driver.findElements(By.cssSelector(".inventory_item_name")).get(index).getText();
     }
 
@@ -40,5 +43,22 @@ public class CartPage extends BasePage{
                                 "//*[text() = '%s']/ancestor::div[@class='cart_item']//" +
                                         "*[@class = 'inventory_item_price']", product)))
                 .getText().replace("$", ""));
+    }
+
+    public String getTitle() {
+        return driver.findElement(TITLE).getText();
+    }
+
+    public void continueShopping() {
+        driver.findElement(CONTINUE_SHOPPING_BUTTON).click();
+    }
+
+    public void removeProduct(String product) {
+        driver.findElement(By.xpath(String.format("//div[@class='cart_item'][.//div[text() = '%s']]" +
+                "//button[text()='Remove']", product))).click();
+    }
+
+    public boolean checkEmptyState() {
+        return driver.findElements(By.xpath("//div[@class='cart_item']")).isEmpty();
     }
 }

@@ -11,7 +11,8 @@ public class ProductsPage extends BasePage {
 
     private static final By TITLE = By.cssSelector("[data-test = title]");
     private static final By CART = By.cssSelector(".shopping_cart_link");
-    private static final String ADD_TO_CART_PATTERN = "//*[text() = '%s']/ancestor::div[@class = 'inventory_item']//button";
+    private static final String ADD_TO_CART_PATTERN = "//*[text() = '%s']" +
+            "/ancestor::div[@class = 'inventory_item']//button";
 
     public String getTitle() {
         return driver.findElement(TITLE).getText();

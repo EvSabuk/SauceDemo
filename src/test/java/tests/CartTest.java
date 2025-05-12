@@ -1,44 +1,13 @@
 package tests;
 
-import org.openqa.selenium.By;
-import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
+import org.testng.annotations.Test;
+import static org.testng.Assert.*;
 
 public class CartTest extends BaseTest {
 
     @Test
-    public void checkLoginPurchase() {
-        SoftAssert softAssert = new SoftAssert();
-        driver.get("https://www.saucedemo.com/");
-        driver.findElement(By.cssSelector("[type=text]")).sendKeys("standard_user");
-        driver.findElement(By.cssSelector("[type=password]")).sendKeys("secret_sauce");
-        driver.findElement(By.cssSelector("[id=login-button]")).click();
-        String productPageTitle = driver.findElement(By.cssSelector(".title")).getText();
-        softAssert.assertEquals(productPageTitle, "Products", "Логин не выполнен");
-        String productName = driver.findElement(By.xpath("//a[@id='item_1_title_link']" +
-                "/child::*")).getText();
-        String ProductPrice = driver.findElement(By.xpath("//a[@id='item_1_title_link']" +
-                "/following::div[@class='inventory_item_price'][1]")).getText();
-        driver.findElement(By.cssSelector("#add-to-cart-sauce-labs-bolt-t-shirt")).click();
-        String isProductAdded = driver.findElement(By.cssSelector(".shopping_cart_badge")).getText();
-        softAssert.assertEquals(isProductAdded, "1", "Товар не добавлен");
-        driver.findElement(By.cssSelector(".shopping_cart_link")).click();
-        String cartPageTitle = driver.findElement(By.cssSelector(".title")).getText();
-        softAssert.assertEquals(cartPageTitle, "Your Cart", "Корзина не открылась");
-        String cartProductName = driver.findElement(By.xpath("//a[@id='item_1_title_link']" +
-                "/child::*")).getText();
-        String cartProductPrice = driver.findElement(By.xpath("//a[@id='item_1_title_link']" +
-                "/following::div[@class='inventory_item_price'][1]")).getText();
-        softAssert.assertEquals(productName, cartProductName);
-        softAssert.assertEquals(ProductPrice, cartProductPrice);
-        softAssert.assertAll();
-    }
-
-    @Test
-    public void checkLoginPurchasePageObject() {
+    public void checkProductPurchase() {
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
         productsPage.addProduct("Sauce Labs Backpack");
@@ -46,8 +15,38 @@ public class CartTest extends BaseTest {
         productsPage.addToCart();
         cartPage.open();
         assertTrue(cartPage.isProductInCart("Sauce Labs Backpack"), "bad");
-        assertEquals(cartPage.getPrdoctFromCart(0), "Sauce Labs Backpack", "BAD");
+        assertEquals(cartPage.getProductFromCart(0), "Sauce Labs Backpack", "BAD");
         assertTrue(cartPage.getProductsName().contains("Sauce Labs Backpack"));
         assertEquals(cartPage.getProductPrice("Sauce Labs Backpack"), 29.99);
+    }
+
+    @Test
+    public void checkCartEmptyState() {
+        loginPage.open();
+        loginPage.login("standard_user", "secret_sauce");
+        cartPage.open();
+        assertTrue(cartPage.checkEmptyState(), "Корзина не пуста");
+    }
+
+    @Test
+    public void checkRemoveProduct() {
+        loginPage.open();
+        loginPage.login("standard_user", "secret_sauce");
+        productsPage.addProduct("Sauce Labs Backpack");
+        productsPage.addToCart();
+        cartPage.open();
+        cartPage.removeProduct("Sauce Labs Backpack");
+        assertTrue(cartPage.checkEmptyState(), "Корзина не пуста");
+    }
+
+    @Test
+    public void checkContinueSoppingButton() {
+        loginPage.open();
+        loginPage.login("standard_user", "secret_sauce");
+        cartPage.open();
+        cartPage.continueShopping();
+        assertEquals(productsPage.getTitle(),
+                "Products",
+                "Возвращение на предыдущую страницу не выполнено");
     }
 }
