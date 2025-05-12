@@ -7,9 +7,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.asserts.SoftAssert;
-import pages.CartPage;
-import pages.LoginPage;
-import pages.ProductsPage;
+import pages.*;
 
 import java.time.Duration;
 import java.util.HashMap;
@@ -20,6 +18,8 @@ public class BaseTest {
     LoginPage loginPage;
     ProductsPage productsPage;
     CartPage cartPage;
+    CheckoutYourInformationPage checkoutYourInformationPage;
+    CheckoutOverviewPage checkoutOverviewPage;
 
     @BeforeMethod
     public WebDriver setup() {
@@ -33,14 +33,15 @@ public class BaseTest {
         options.addArguments("--disable-popup-blocking");
         options.addArguments("--disable-infobars");
         driver = new ChromeDriver(options);
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         driver.manage().window().maximize();
         softAssert = new SoftAssert();
         loginPage = new LoginPage(driver);
         productsPage = new ProductsPage(driver);
         cartPage = new CartPage(driver);
+        checkoutYourInformationPage = new CheckoutYourInformationPage(driver);
+        checkoutOverviewPage = new CheckoutOverviewPage(driver);
         return driver;
-
     }
 
     @AfterMethod(alwaysRun = true)
