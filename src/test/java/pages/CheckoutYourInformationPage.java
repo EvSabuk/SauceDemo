@@ -9,7 +9,7 @@ public class CheckoutYourInformationPage extends BasePage {
             LAST_NAME_FIELD = By.id("last-name"),
             POSTAL_CODE_FIELD = By.id("postal-code"),
             CONTINUE_BUTTON = By.id("continue"),
-            CANCEL_BUTTON = By.id("clickCancelButton"),
+            CANCEL_BUTTON = By.id("cancel"),
             ERROR_MESSAGE = By.xpath("//h3[@data-test='error']"),
             TITLE = By.cssSelector("[data-test = title]");
 
@@ -18,7 +18,7 @@ public class CheckoutYourInformationPage extends BasePage {
     }
 
     public void open() {
-        driver.get(BASE_URL + "fillingForm-step-one.html");
+        driver.get(BASE_URL + "checkout-step-one.html");
     }
 
     public String getErrorMessage() {
