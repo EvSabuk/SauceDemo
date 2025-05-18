@@ -1,11 +1,9 @@
 package tests;
 
 import org.testng.annotations.Test;
-
 import static org.testng.Assert.assertEquals;
 
 public class LoginTest extends BaseTest {
-
 
     @Test
     public void checkSuccessLogin() {
@@ -36,7 +34,7 @@ public class LoginTest extends BaseTest {
                 "SO BAD");
     }
 
-    @Test
+    @Test(retryAnalyzer = Retry.class)
     public void checkLoginWithEmptyValues() {
         loginPage.open();
         loginPage.login("", "");

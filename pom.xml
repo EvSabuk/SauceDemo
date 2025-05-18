@@ -12,6 +12,7 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <suiteXmlFile>src/test/resources/CrossBrowserTest.xml</suiteXmlFile>
     </properties>
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.testng/testng -->
@@ -26,22 +27,29 @@
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>4.31.0</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.testng/testng -->
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>7.10.1</version>
-            <scope>test</scope>
+            <version>4.32.0</version>
         </dependency>
 
         <dependency>
             <groupId>org.msgpack</groupId>
             <artifactId>msgpack-core</artifactId>
-            <version>0.9.0</version>
+            <version>0.9.9</version>
         </dependency>
 
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.5.3</version>
+                <configuration>
+                    <suiteXmlFiles>
+                        <suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
+                    </suiteXmlFiles>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

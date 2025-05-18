@@ -2,6 +2,7 @@ package pages;
 
 import org.openqa.selenium.WebDriver;
 
+
 public abstract class BasePage {
 
     WebDriver driver;
@@ -11,6 +12,4 @@ public abstract class BasePage {
     public BasePage(WebDriver driver) {
         this.driver = driver;
     }
-
-
 }
