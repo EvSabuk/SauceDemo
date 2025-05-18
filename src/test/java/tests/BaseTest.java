@@ -25,7 +25,7 @@ public class BaseTest {
     String password = System.getProperty("password");
 
     @Parameters({"browser"})
-    @BeforeMethod
+    @BeforeMethod (alwaysRun = true)
     public WebDriver setup(@Optional("chrome") String browser) {
         if (browser.equalsIgnoreCase("chrome")) {
             ChromeOptions options = new ChromeOptions();

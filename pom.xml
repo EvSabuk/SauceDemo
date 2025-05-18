@@ -3,7 +3,6 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <groupId>org.example</groupId>
     <artifactId>SauceDemo</artifactId>
     <version>1.0-SNAPSHOT</version>
@@ -13,31 +12,30 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <suiteXmlFile>src/test/resources/CrossBrowserTest.xml</suiteXmlFile>
+        <testing.version>7.11.0</testing.version>
+        <selenium-java.version>4.32.0</selenium-java.version>
+        <msgpack-core.version>0.9.9</msgpack-core.version>
     </properties>
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.testng/testng -->
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <version>7.11.0</version>
+            <version>${testing.version}</version>
             <scope>test</scope>
         </dependency>
-
         <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>4.32.0</version>
+            <version>${selenium-java.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.msgpack</groupId>
             <artifactId>msgpack-core</artifactId>
-            <version>0.9.9</version>
+            <version>${msgpack-core.version}</version>
         </dependency>
-
     </dependencies>
-
     <build>
         <plugins>
             <plugin>

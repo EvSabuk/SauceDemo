@@ -3,6 +3,7 @@
 <suite thread-count="2" name="SauceDemo CrossBrowser Test" parallel="tests">
     <listeners>
         <listener class-name="tests.TestListener"/>
+        <listener class-name="tests.AnnotationTransformer"/>
     </listeners>
     <test name="Chrome">
         <classes>

@@ -5,7 +5,7 @@ import static org.testng.Assert.assertEquals;
 
 public class LoginTest extends BaseTest {
 
-    @Test
+    @Test(testName = "Проверка входа в систему с корректными данными")
     public void checkSuccessLogin() {
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
@@ -14,7 +14,7 @@ public class LoginTest extends BaseTest {
                 "Логин не выполнен");
     }
 
-    @Test
+    @Test(testName = "Проверка входа в систему без пароля")
     public void checkLoginWithEmailOnly() {
         loginPage.open();
         loginPage.login("standard-user", "");
@@ -24,7 +24,7 @@ public class LoginTest extends BaseTest {
                 "SO BAD");
     }
 
-    @Test
+    @Test(testName = "Проверка входа в систему с невалидными данными")
     public void checkLoginWithInvalidCredentials() {
         loginPage.open();
         loginPage.login("1", "1");
