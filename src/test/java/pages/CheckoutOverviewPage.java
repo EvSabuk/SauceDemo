@@ -12,7 +12,7 @@ public class CheckoutOverviewPage extends BasePage {
     }
 
     public void open() {
-        driver.get(BASE_URL + "checkout-step-two.html");
+        driver.get(BASE_URL + "fillingForm-step-two.html");
     }
 
     public String getTitle() {

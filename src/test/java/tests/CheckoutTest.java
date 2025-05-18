@@ -16,7 +16,7 @@ public class CheckoutTest extends BaseTest {
     @Test
     public void checkSuccessCheckout() {
         openCheckoutPage();
-        checkoutYourInformationPage.checkout("Evgeny", "Chrome", "6000");
+        checkoutYourInformationPage.fillingForm("Evgeny", "Chrome", "6000");
         assertEquals(checkoutOverviewPage.getTitle(),
                 "Checkout: Overview",
                 "Пользовательские данные не верны");
@@ -25,7 +25,7 @@ public class CheckoutTest extends BaseTest {
     @Test
     public void checkCheckoutEmptyFields() {
         openCheckoutPage();
-        checkoutYourInformationPage.checkout("", "", "");
+        checkoutYourInformationPage.fillingForm("", "", "");
         assertEquals(checkoutYourInformationPage.getErrorMessage(),
                 "Error: First Name is required",
                 "Валидационное сообщение не найдено");
@@ -34,7 +34,7 @@ public class CheckoutTest extends BaseTest {
     @Test
     public void checkCheckoutEmptyLastName() {
         openCheckoutPage();
-        checkoutYourInformationPage.checkout("Evgeny", "", "6000");
+        checkoutYourInformationPage.fillingForm("Evgeny", "", "6000");
         assertEquals(checkoutYourInformationPage.getErrorMessage(),
                 "Error: Last Name is required",
                 "Валидационное сообщение не найдено");
@@ -43,7 +43,7 @@ public class CheckoutTest extends BaseTest {
     @Test
     public void checkCheckoutEmptyFirstName() {
         openCheckoutPage();
-        checkoutYourInformationPage.checkout("", "Chrome", "6000");
+        checkoutYourInformationPage.fillingForm("", "Chrome", "6000");
         assertEquals(checkoutYourInformationPage.getErrorMessage(),
                 "Error: First Name is required",
                 "Валидационное сообщение не найдено");
@@ -52,7 +52,7 @@ public class CheckoutTest extends BaseTest {
     @Test
     public void checkCheckoutEmptyPostalCode() {
         openCheckoutPage();
-        checkoutYourInformationPage.checkout("Evgeny", "Chrome", "");
+        checkoutYourInformationPage.fillingForm("Evgeny", "Chrome", "");
         assertEquals(checkoutYourInformationPage.getErrorMessage(),
                 "Error: Postal Code is required",
                 "Валидационное сообщение не найдено");
@@ -61,7 +61,7 @@ public class CheckoutTest extends BaseTest {
     @Test
     public void checkCancelCheckout() {
         openCheckoutPage();
-        checkoutYourInformationPage.cancel();
+        checkoutYourInformationPage.clickCancelButton();
         assertEquals(cartPage.getTitle(),
                 "Your Cart",
                 "Возвращение на предыдущую страницу не выполнено");
