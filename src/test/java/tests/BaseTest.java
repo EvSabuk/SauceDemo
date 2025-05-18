@@ -8,7 +8,6 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
 import pages.*;
-
 import java.time.Duration;
 import java.util.HashMap;
 
@@ -25,7 +24,7 @@ public class BaseTest {
     String password = System.getProperty("password");
 
     @Parameters({"browser"})
-    @BeforeMethod (alwaysRun = true)
+    @BeforeMethod(alwaysRun = true)
     public WebDriver setup(@Optional("chrome") String browser) {
         if (browser.equalsIgnoreCase("chrome")) {
             ChromeOptions options = new ChromeOptions();

@@ -1,6 +1,5 @@
 package tests;
 
-
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
@@ -35,7 +34,7 @@ public class CartTest extends BaseTest {
         productsPage.addProduct("Sauce Labs Backpack");
         productsPage.addToCart();
         cartPage.open();
-       // cartPage.removeProduct("Sauce Labs Backpack");
+        cartPage.removeProduct("Sauce Labs Backpack");
         assertTrue(cartPage.checkEmptyState(), "Корзина не пуста");
     }
 

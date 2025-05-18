@@ -25,7 +25,7 @@ public class CheckoutTest extends BaseTest {
 
     @DataProvider
     public Object[][] checkoutData() {
-        return new Object[][] {
+        return new Object[][]{
                 {"", "", "", "Error: First Name is required"},
                 {"Evgeny", "", "6000", "Error: Last Name is required"},
                 {"", "Chrome", "6000", "Error: First Name is required"},
@@ -34,13 +34,13 @@ public class CheckoutTest extends BaseTest {
     }
 
     @Test(dataProvider = "checkoutData")
-    public void fillingFormFromParameters (String first_name, String last_name,
-                                           String postal_code, String error_message) {
-            openCheckoutPage();
-            checkoutYourInformationPage.fillingForm(first_name, last_name, postal_code);
-            assertEquals(checkoutYourInformationPage.getErrorMessage(),
-                    error_message,
-                    "Валидационное сообщение не найдено");
+    public void fillingFormFromParameters(String first_name, String last_name,
+                                          String postal_code, String error_message) {
+        openCheckoutPage();
+        checkoutYourInformationPage.fillingForm(first_name, last_name, postal_code);
+        assertEquals(checkoutYourInformationPage.getErrorMessage(),
+                error_message,
+                "Валидационное сообщение не найдено");
     }
 
     @Test(testName = "Проверка отправки формы с пустыми полями", dependsOnMethods = {"checkSuccessCheckout"})
