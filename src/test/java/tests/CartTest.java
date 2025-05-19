@@ -1,12 +1,11 @@
 package tests;
 
-
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class CartTest extends BaseTest {
 
-    @Test
+    @Test(testName = "Проверка покупки любого товара", priority = 1)
     public void checkProductPurchase() {
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
@@ -20,7 +19,7 @@ public class CartTest extends BaseTest {
         assertEquals(cartPage.getProductPrice("Sauce Labs Backpack"), 29.99);
     }
 
-    @Test
+    @Test(testName = "Проверка пустой карзины", priority = 2, groups = {"slow"})
     public void checkCartEmptyState() {
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
@@ -28,7 +27,7 @@ public class CartTest extends BaseTest {
         assertTrue(cartPage.checkEmptyState(), "Корзина не пуста");
     }
 
-    @Test
+    @Test(testName = "Проверка удаления продукта", priority = 2, groups = {"slow"})
     public void checkRemoveProduct() {
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
@@ -39,10 +38,10 @@ public class CartTest extends BaseTest {
         assertTrue(cartPage.checkEmptyState(), "Корзина не пуста");
     }
 
-    @Test
+    @Test(testName = "Проверка работы кнопки 'Continue'", priority = 1)
     public void checkContinueSoppingButton() {
         loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
+        loginPage.login("stasndard_user", "secret_sauce");
         cartPage.open();
         cartPage.continueShopping();
         assertEquals(productsPage.getTitle(),
