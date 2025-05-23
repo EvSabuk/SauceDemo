@@ -5,11 +5,15 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.ITestContext;
+import org.testng.ITestResult;
 import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
 import pages.*;
 import java.time.Duration;
 import java.util.HashMap;
+
+import static tests.AllureUtils.takeScreenshot;
 
 @Listeners(TestListener.class)
 public class BaseTest {
@@ -24,8 +28,8 @@ public class BaseTest {
     String password = System.getProperty("password");
 
     @Parameters({"browser"})
-    @BeforeMethod(alwaysRun = true)
-    public WebDriver setup(@Optional("chrome") String browser) {
+    @BeforeMethod(alwaysRun = true, description = "Открытие браузера")
+    public WebDriver setup(@Optional("chrome") String browser, ITestContext context) {
         if (browser.equalsIgnoreCase("chrome")) {
             ChromeOptions options = new ChromeOptions();
             HashMap<String, Object> chromePrefs = new HashMap<>();
@@ -40,7 +44,7 @@ public class BaseTest {
         } else if (browser.equalsIgnoreCase("firefox")) {
             driver = new FirefoxDriver();
         }
-
+        context.setAttribute("driver", driver);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         driver.manage().window().maximize();
         softAssert = new SoftAssert();
@@ -52,8 +56,11 @@ public class BaseTest {
         return driver;
     }
 
-    @AfterMethod(alwaysRun = true)
-    public void tearDown() {
+    @AfterMethod(alwaysRun = true, description = "Закрытие браузера")
+    public void tearDown(ITestResult result) {
+        if (ITestResult.FAILURE == result.getStatus()) {
+            takeScreenshot(driver);
+        }
         driver.quit();
     }
 

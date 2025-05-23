@@ -1,20 +1,27 @@
 package tests;
 
+import io.qameta.allure.*;
 import org.testng.annotations.Test;
+
 import static org.testng.Assert.assertEquals;
 
 public class LoginTest extends BaseTest {
 
     @Test(testName = "Проверка входа в систему с корректными данными")
+    @Epic("Авторизация")
+    @Feature("Страница логина")
+    @Story("Позитивный логин")
     public void checkSuccessLogin() {
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
         assertEquals(productsPage.getTitle(),
-                "Products",
+                "Product",
                 "Логин не выполнен");
     }
 
     @Test(testName = "Проверка входа в систему без пароля")
+    @Description("Проверка входа в систему с коррекными пользовательскими данными")
+    @Step("Ожидается открытие вкладки Products")
     public void checkLoginWithEmailOnly() {
         loginPage.open();
         loginPage.login("standard-user", "");
@@ -25,6 +32,8 @@ public class LoginTest extends BaseTest {
     }
 
     @Test(testName = "Проверка входа в систему с невалидными данными")
+    @Description("Проверка отображения валидации при попытке входа в систему с не сущесутвующим пользователем ")
+    @Step("Ожидается появление валидационного сообщения")
     public void checkLoginWithInvalidCredentials() {
         loginPage.open();
         loginPage.login("1", "1");
@@ -35,6 +44,8 @@ public class LoginTest extends BaseTest {
     }
 
     @Test(retryAnalyzer = Retry.class)
+    @Description("Проверка отображения валидации при попытке входа в систему с пустыми полями ")
+    @Step("Ожидается появление валидационного сообщения")
     public void checkLoginWithEmptyValues() {
         loginPage.open();
         loginPage.login("", "");
