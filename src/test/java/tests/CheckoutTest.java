@@ -1,7 +1,10 @@
 package tests;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Step;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+
 import static org.testng.Assert.assertEquals;
 
 public class CheckoutTest extends BaseTest {
@@ -15,6 +18,8 @@ public class CheckoutTest extends BaseTest {
     }
 
     @Test(testName = "Проверка ввода корректных пользовательских данных для покупки товара")
+    @Description("Проверка покупки товара с коррекными пользовательскими данными")
+    @Step("Ожидается открытие вкладки Overview")
     public void checkSuccessCheckout() {
         openCheckoutPage();
         checkoutYourInformationPage.fillingForm("Evgeny", "Chrome", "6000");
@@ -44,6 +49,8 @@ public class CheckoutTest extends BaseTest {
     }
 
     @Test(testName = "Проверка отправки формы с пустыми полями", dependsOnMethods = {"checkSuccessCheckout"})
+    @Description("Проверка отображения валидации при попытке сохранения формы с пустыми данными")
+    @Step("Ожидается появление валидационного сообщения")
     public void checkCheckoutEmptyFields() {
         openCheckoutPage();
         checkoutYourInformationPage.fillingForm("", "", "");
@@ -53,6 +60,8 @@ public class CheckoutTest extends BaseTest {
     }
 
     @Test(testName = "Проверка отправки поля без фамилии", dependsOnMethods = {"checkSuccessCheckout"})
+    @Description("Проверка отображения валидации при попытке сохранения формы без Last Name")
+    @Step("Ожидается появление валидационного сообщения")
     public void checkCheckoutEmptyLastName() {
         openCheckoutPage();
         checkoutYourInformationPage.fillingForm("Evgeny", "", "6000");
@@ -62,6 +71,8 @@ public class CheckoutTest extends BaseTest {
     }
 
     @Test(testName = "Проверка отправки формы без имени", dependsOnMethods = {"checkSuccessCheckout"})
+    @Description("Проверка отображения валидации при попытке сохранения формы без First Name")
+    @Step("Ожидается появление валидационного сообщения")
     public void checkCheckoutEmptyFirstName() {
         openCheckoutPage();
         checkoutYourInformationPage.fillingForm("", "Chrome", "6000");
@@ -71,6 +82,8 @@ public class CheckoutTest extends BaseTest {
     }
 
     @Test(testName = "Проверка отправик формы без почтового индекса", dependsOnMethods = {"checkSuccessCheckout"})
+    @Description("Проверка отображения валидации при попытке сохранения формы без Postal Code")
+    @Step("Ожидается появление валидационного сообщения")
     public void checkCheckoutEmptyPostalCode() {
         openCheckoutPage();
         checkoutYourInformationPage.fillingForm("Evgeny", "Chrome", "");
@@ -80,6 +93,8 @@ public class CheckoutTest extends BaseTest {
     }
 
     @Test(testName = "Проверка отмены формы воода пользовательских данных", dependsOnMethods = {"checkSuccessCheckout"})
+    @Description("Проверка отображения Cart страницы после нажатия кнопки cancel")
+    @Step("Ожидается отображение Cart страницы")
     public void checkCancelCheckout() {
         openCheckoutPage();
         checkoutYourInformationPage.clickCancelButton();
