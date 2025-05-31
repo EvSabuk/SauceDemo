@@ -2,6 +2,7 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class CheckoutOverviewPage extends BasePage {
 
@@ -11,8 +12,15 @@ public class CheckoutOverviewPage extends BasePage {
         super(driver);
     }
 
-    public void open() {
+    public CheckoutOverviewPage open() {
         driver.get(BASE_URL + "fillingForm-step-two.html");
+        return this;
+    }
+
+    @Override
+    public CheckoutOverviewPage isPageOpened() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(TITLE));
+        return this;
     }
 
     public String getTitle() {

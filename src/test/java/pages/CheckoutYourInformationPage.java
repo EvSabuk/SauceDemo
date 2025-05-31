@@ -2,6 +2,7 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class CheckoutYourInformationPage extends BasePage {
 
@@ -17,23 +18,32 @@ public class CheckoutYourInformationPage extends BasePage {
         super(driver);
     }
 
-    public void open() {
+    public CheckoutYourInformationPage open() {
         driver.get(BASE_URL + "checkout-step-one.html");
+        return this;
+    }
+
+    @Override
+    public CheckoutYourInformationPage isPageOpened() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(TITLE));
+        return this;
     }
 
     public String getErrorMessage() {
         return driver.findElement(ERROR_MESSAGE).getText();
     }
 
-    public void clickCancelButton() {
+    public CartPage clickCancelButton() {
         driver.findElement(CANCEL_BUTTON).click();
+        return new CartPage(driver);
     }
 
-    public void fillingForm(String first_name, String last_name, String postal_code) {
+    public CheckoutOverviewPage fillingForm(String first_name, String last_name, String postal_code) {
         driver.findElement(FIRST_NAME_FIELD).sendKeys(first_name);
         driver.findElement(LAST_NAME_FIELD).sendKeys(last_name);
         driver.findElement(POSTAL_CODE_FIELD).sendKeys(postal_code);
         driver.findElement(CONTINUE_BUTTON).click();
+        return new CheckoutOverviewPage(driver);
     }
 
     public String getTitle() {
