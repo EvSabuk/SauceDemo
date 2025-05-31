@@ -3,6 +3,7 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +16,15 @@ public class CartPage extends BasePage {
         super(driver);
     }
 
-    public void open() {
+    public CartPage open() {
         driver.get(BASE_URL + "cart.html");
+        return this;
+    }
+
+    @Override
+    public CartPage isPageOpened() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(TITLE));
+        return this;
     }
 
     public boolean isProductInCart(String product) {
@@ -49,13 +57,15 @@ public class CartPage extends BasePage {
         return driver.findElement(TITLE).getText();
     }
 
-    public void continueShopping() {
+    public ProductsPage continueShopping() {
         driver.findElement(CONTINUE_SHOPPING_BUTTON).click();
+        return new ProductsPage(driver);
     }
 
-    public void removeProduct(String product) {
+    public CartPage removeProduct(String product) {
         driver.findElement(By.xpath(String.format("//div[@class='cart_item'][.//div[text() = '%s']]" +
                 "//button[text()='Remove']", product))).click();
+        return this;
     }
 
     public boolean checkEmptyState() {

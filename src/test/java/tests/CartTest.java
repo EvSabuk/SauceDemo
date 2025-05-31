@@ -2,7 +2,6 @@ package tests;
 
 import io.qameta.allure.*;
 import org.testng.annotations.Test;
-
 import static org.testng.Assert.*;
 
 public class CartTest extends BaseTest {
@@ -19,12 +18,14 @@ public class CartTest extends BaseTest {
     @TmsLink("TMS_T10")
     @Issue("Bug_Jira")
     public void checkProductPurchase() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.addProduct("Sauce Labs Backpack");
-        productsPage.addProduct("Sauce Labs Fleece Jacket");
-        productsPage.addToCart();
-        cartPage.open();
+        loginPage.open()
+                .isPageOpened()
+                .login("standard_user", "secret_sauce")
+                .isPageOpened()
+                .addProduct("Sauce Labs Backpack")
+                .addProduct("Sauce Labs Fleece Jacket")
+                .addToCart()
+                .isPageOpened();
         assertTrue(cartPage.isProductInCart("Sauce Labs Backpack"), "bad");
         assertEquals(cartPage.getProductFromCart(0), "Sauce Labs Backpack", "BAD");
         assertTrue(cartPage.getProductsName().contains("Sauce Labs Backpack"));
@@ -35,8 +36,10 @@ public class CartTest extends BaseTest {
     @Description("Проверяет стандартное отображение страницы корзины без товаров.")
     @Step("Проверка, что по стандарту страница пуста. Ожидается 0 товаров")
     public void checkCartEmptyState() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
+        loginPage.open()
+                .isPageOpened()
+                .login("standard_user", "secret_sauce")
+                .isPageOpened();
         cartPage.open();
         assertTrue(cartPage.checkEmptyState(), "Корзина не пуста");
     }
@@ -45,12 +48,15 @@ public class CartTest extends BaseTest {
     @Description("Проверка того, что товар корректно удаляется из корзины")
     @Step("Проверка удаления товара. Ожидается 0 товаров")
     public void checkRemoveProduct() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.addProduct("Sauce Labs Backpack");
-        productsPage.addToCart();
-        cartPage.open();
-        cartPage.removeProduct("Sauce Labs Backpack");
+        loginPage.open()
+                .isPageOpened()
+                .login("standard_user", "secret_sauce")
+                .isPageOpened()
+                .addProduct("Sauce Labs Backpack")
+                .addToCart()
+                .open()
+                .removeProduct("Sauce Labs Backpack")
+                .isPageOpened();
         assertTrue(cartPage.checkEmptyState(), "Корзина не пуста");
     }
 
@@ -58,10 +64,14 @@ public class CartTest extends BaseTest {
     @Description("Проверка того, что кнопка continue возвращает пользователя на предыдущую страницу")
     @Step("Проверка, что после перенаправления открывается страница Products")
     public void checkContinueSoppingButton() {
-        loginPage.open();
-        loginPage.login("standard_user", "secаret_sauce");
-        cartPage.open();
-        cartPage.continueShopping();
+        loginPage.open()
+                .isPageOpened()
+                .login("standard_user", "secret_sauce")
+                .isPageOpened();
+        cartPage.open()
+                .isPageOpened()
+                .continueShopping()
+                .isPageOpened();
         assertEquals(productsPage.getTitle(),
                 "Products",
                 "Возвращение на предыдущую страницу не выполнено");
