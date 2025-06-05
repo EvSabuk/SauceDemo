@@ -31,7 +31,7 @@ public class CartTest extends BaseTest {
         assertEquals(cartPage.getProductPrice("Sauce Labs Backpack"), 29.99);
     }
 
-    @Test(testName = "Проверка пустой карзины", priority = 2, groups = {"slow"})
+    @Test(testName = "Проверка пустой корзины", priority = 2, groups = {"slow"})
     @Description("Проверяет стандартное отображение страницы корзины без товаров.")
     @Step("Проверка, что по стандарту страница пуста. Ожидается 0 товаров")
     public void checkCartEmptyState() {
