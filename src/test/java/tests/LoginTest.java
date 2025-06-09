@@ -2,7 +2,6 @@ package tests;
 
 import io.qameta.allure.*;
 import org.testng.annotations.Test;
-
 import static org.testng.Assert.assertEquals;
 
 public class LoginTest extends BaseTest {
@@ -12,10 +11,11 @@ public class LoginTest extends BaseTest {
     @Feature("Страница логина")
     @Story("Позитивный логин")
     public void checkSuccessLogin() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
+        loginPage.open()
+                .isPageOpened()
+                .login("standard_user", "secret_sauce");
         assertEquals(productsPage.getTitle(),
-                "Product",
+                "Products",
                 "Логин не выполнен");
     }
 
@@ -23,9 +23,9 @@ public class LoginTest extends BaseTest {
     @Description("Проверка входа в систему с коррекными пользовательскими данными")
     @Step("Ожидается открытие вкладки Products")
     public void checkLoginWithEmailOnly() {
-        loginPage.open();
-        loginPage.login("standard-user", "");
-        String errorMessage = loginPage.getErrorMessage();
+        loginPage.open()
+                .isPageOpened()
+                .login("standard-user", "");
         assertEquals(loginPage.getErrorMessage(),
                 "Epic sadface: Password is required",
                 "SO BAD");
@@ -35,9 +35,9 @@ public class LoginTest extends BaseTest {
     @Description("Проверка отображения валидации при попытке входа в систему с не сущесутвующим пользователем ")
     @Step("Ожидается появление валидационного сообщения")
     public void checkLoginWithInvalidCredentials() {
-        loginPage.open();
-        loginPage.login("1", "1");
-        String errorMessage = loginPage.getErrorMessage();
+        loginPage.open()
+                .isPageOpened()
+                .login("1", "1");
         assertEquals(loginPage.getErrorMessage(),
                 "Epic sadface: Username and password do not match any user in this service",
                 "SO BAD");
@@ -47,9 +47,9 @@ public class LoginTest extends BaseTest {
     @Description("Проверка отображения валидации при попытке входа в систему с пустыми полями ")
     @Step("Ожидается появление валидационного сообщения")
     public void checkLoginWithEmptyValues() {
-        loginPage.open();
-        loginPage.login("", "");
-        String errorMessage = loginPage.getErrorMessage();
+        loginPage.open()
+                .isPageOpened()
+                .login("", "");
         assertEquals(loginPage.getErrorMessage(),
                 "Epic sadface: Username is required",
                 "SO BAD");
