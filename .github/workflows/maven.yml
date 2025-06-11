@@ -24,6 +24,6 @@ jobs:
         cache: maven
     - name: Run tests
       run: mvn clean test
-    - name: Run tests
-      run: mvn clean test -DxsuiteXmlFile='src/test/resources/RegressionTesting.xml'
+    - name: Run tests cross browser
+      run: mvn clean test -DxsuiteXmlFile='src/test/resources/CrossBrowserTest.xml'
 
