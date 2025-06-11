@@ -9,9 +9,7 @@ on:
   pull_request:
     branches: [ "master" ]
 
-  env:
-    USER: ${{secrets.SD_USER}}
-    PASS: ${{secrets.SD_PASSWORD}}
+
 
 jobs:
   build:
@@ -27,7 +25,13 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Run tests
+      env:
+        USER: ${{secrets.SD_USER}}
+        PASS: ${{secrets.SD_PASSWORD}}
       run: mvn clean test
     - name: Run tests cross browser
+      env:
+        USER: ${{secrets.SD_USER}}
+        PASS: ${{secrets.SD_PASSWORD}}
       run: mvn clean test -DxsuiteXmlFile='src/test/resources/CrossBrowserTest.xml'
 
