@@ -44,6 +44,8 @@ public class BaseTest {
             options.addArguments("--headless");
             driver = new ChromeDriver(options);
         } else if (browser.equalsIgnoreCase("firefox")) {
+            FirefoxOptions options = new FirefoxOptions();
+            options.addArguments("--headless");
             driver = new FirefoxDriver();
         }
         context.setAttribute("driver", driver);
