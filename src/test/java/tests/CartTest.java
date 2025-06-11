@@ -54,9 +54,8 @@ public class CartTest extends BaseTest {
                 .isPageOpened()
                 .addProduct("Sauce Labs Backpack")
                 .addToCart()
-                .open()
-                .removeProduct("Sauce Labs Backpack")
-                .isPageOpened();
+                .isPageOpened()
+                .removeProduct("Sauce Labs Backpack");
         assertTrue(cartPage.checkEmptyState(), "Корзина не пуста");
     }
 
