@@ -9,6 +9,10 @@ on:
   pull_request:
     branches: [ "master" ]
 
+  env:
+    USER: ${{secrets.SD_USER}}
+    PASS: ${{secrets.SD_PASSWORD}}
+
 jobs:
   build:
 
