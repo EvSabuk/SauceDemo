@@ -16,6 +16,10 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    env:
+        USER: ${{secrets.SD_USER}}
+        PASS: ${{secrets.SD_PASSWORD}}
+
     steps:
     - uses: actions/checkout@v4
     - name: Set up JDK 17
@@ -25,13 +29,7 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Run tests
-      env:
-        USER: ${{secrets.SD_USER}}
-        PASS: ${{secrets.SD_PASSWORD}}
-      run: mvn clean test
+      run: mvn clean test -Duser=$USER -Dpassword=$PASS
     - name: Run tests cross browser
-      env:
-        USER: ${{secrets.SD_USER}}
-        PASS: ${{secrets.SD_PASSWORD}}
-      run: mvn clean test -DxsuiteXmlFile='src/test/resources/CrossBrowserTest.xml'
+      run: mvn clean test -DxsuiteXmlFile='src/test/resources/CrossBrowserTest.xml' -Duser=$USER -Dpassword=$PASS
 
