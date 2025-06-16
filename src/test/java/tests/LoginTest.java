@@ -13,7 +13,7 @@ public class LoginTest extends BaseTest {
     public void checkSuccessLogin() {
         loginPage.open()
                 .isPageOpened()
-                .login(user, password);
+                .login("standard_user", "secret_sauce");
         assertEquals(productsPage.getTitle(),
                 "Products",
                 "Логин не выполнен");
@@ -25,7 +25,7 @@ public class LoginTest extends BaseTest {
     public void checkLoginWithEmailOnly() {
         loginPage.open()
                 .isPageOpened()
-                .login(user, "");
+                .login("standard_user", "");
         assertEquals(loginPage.getErrorMessage(),
                 "Epic sadface: Password is required",
                 "SO BAD");
